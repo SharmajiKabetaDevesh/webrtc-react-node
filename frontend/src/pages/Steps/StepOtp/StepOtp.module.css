@@ -1,0 +1,25 @@
+
+.cardotp{
+    margin:0 auto;
+    width: 60%;
+  }
+  
+.cardWrapper{
+    margin:0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+}
+
+
+.actionbuttonwrap{
+  margin-top: 40px;
+}
+
+.bottompara{
+  color:#c4c5c5;
+  width:75%;
+  margin:0 auto;
+  margin-bottom: 10px;
+  text-align: center;
+}
