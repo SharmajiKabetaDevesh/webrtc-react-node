@@ -5,12 +5,19 @@ import NavBar from './components/Shared/Navigation/Navigation'
 import Authenticate from './pages/Authenticate/Authenticate';
 import Activate from './pages/Activate/Activate';
 import Rooms from './pages/Rooms/Rooms';
-const isAuth=false;
-const user={
-  activated:false
-}
+import{useState} from'react'
+import { useSelector } from 'react-redux';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
+import Loader from './components/Shared/Loader/Loader';
+import Room from './pages/Room/Room';
 function App() {
+
+  //call refresh endpoint
+const {loading}=useLoadingWithRefresh();
   return (
+    loading ?(
+      <Loader/>
+    ):(
     
       <BrowserRouter>
       <NavBar/>
@@ -24,9 +31,8 @@ function App() {
         
 
         <GuestRoute path="/authenticate" exact>
-
-<Authenticate/>
-</GuestRoute>
+          <Authenticate/>
+        </GuestRoute>
 
       <SemiProtected path='/activate'>
 <Activate/>
@@ -41,21 +47,24 @@ function App() {
 
 </Protected>
 
+<Protected path='/room/:id'>
 
+  <Room/>
+
+</Protected>
 
 
 
       </Switch>
       
       </BrowserRouter>
-
+    )
     
   );
 }
 
 const GuestRoute = ({ children, ...rest }) => {
-
-
+const {isAuth}=useSelector((state)=>state.auth)
   return (
     <Route
       {...rest}
@@ -81,6 +90,7 @@ const GuestRoute = ({ children, ...rest }) => {
 
 
 const SemiProtected=({children,...rest})=>{
+  const {user,isAuth}=useSelector((state)=>state.auth)
   return <Route {...rest}
   render={({location})=>{
     return(
@@ -112,6 +122,7 @@ const SemiProtected=({children,...rest})=>{
 
 
 const Protected=({children,...rest})=>{
+  const {user,isAuth}=useSelector((state)=>state.auth)
 return <Route
 {...rest}
 render={({location})=>{

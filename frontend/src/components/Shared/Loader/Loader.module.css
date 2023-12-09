@@ -1,0 +1,15 @@
+.message{
+    font-weight:bold;
+    font-size:large;
+}
+
+.spinner{
+    margin-bottom:20px;
+    animation:spin 1s ease-in-out infinite;
+}
+
+@keyframes spin{
+    100%{
+        transfrom:rotate(360deg);
+    }
+}
